@@ -1,0 +1,64 @@
+{
+  "name": "api-automation-framework",
+  "version": "1.0.0",
+  "description": "API Automation Framework using Playwright and TypeScript for AkeedCorp",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:dev": "cross-env ENVIRONMENT=dev playwright test",
+    "test:qa": "cross-env ENVIRONMENT=qa playwright test",
+    "test:staging": "cross-env ENVIRONMENT=staging playwright test",
+    "test:smoke": "playwright test tests/smoke",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report reports/html",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.{ts,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,json,md}\"",
+    "type-check": "tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "api",
+    "automation",
+    "testing",
+    "playwright",
+    "typescript",
+    "akeedcorp"
+  ],
+  "author": "Platform Engineering Team - AkeedCorp",
+  "license": "PROPRIETARY",
+  "devDependencies": {
+    "@playwright/test": "^1.41.0",
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-playwright": "^0.21.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "winston": "^3.11.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

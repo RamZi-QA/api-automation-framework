@@ -1,0 +1,34 @@
+{
+  "destinations": [
+    "Riyadh",
+    "Jeddah",
+    "Mecca",
+    "Medina",
+    "Dammam",
+    "Khobar",
+    "Tabuk",
+    "Abha"
+  ],
+  "sampleBookings": [
+    {
+      "reference": "BKG001",
+      "customerEmail": "customer1@example.com",
+      "destination": "Riyadh",
+      "travelDate": "2024-12-25",
+      "numberOfTravelers": 2
+    },
+    {
+      "reference": "BKG002",
+      "customerEmail": "customer2@example.com",
+      "destination": "Jeddah",
+      "travelDate": "2024-12-26",
+      "numberOfTravelers": 4
+    }
+  ],
+  "bookingStatuses": [
+    "PENDING",
+    "CONFIRMED",
+    "CANCELLED",
+    "COMPLETED"
+  ]
+}

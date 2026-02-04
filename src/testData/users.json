@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Test User 1",
+      "email": "testuser1@akeedcorp.com",
+      "phone": "+966501234567",
+      "role": "customer"
+    },
+    {
+      "id": "2",
+      "name": "Test User 2",
+      "email": "testuser2@akeedcorp.com",
+      "phone": "+966501234568",
+      "role": "admin"
+    }
+  ],
+  "credentials": {
+    "validUser": {
+      "email": "valid@akeedcorp.com",
+      "password": "ValidPassword123!"
+    },
+    "adminUser": {
+      "email": "admin@akeedcorp.com",
+      "password": "AdminPassword123!"
+    }
+  }
+}

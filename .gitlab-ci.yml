@@ -1,0 +1,124 @@
+stages:
+  - lint
+  - test
+  - report
+
+variables:
+  NODE_VERSION: "18"
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  paths:
+    - .npm/
+    - node_modules/
+
+.install_template:
+  before_script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npx playwright install --with-deps
+
+lint:
+  stage: lint
+  image: node:${NODE_VERSION}
+  extends: .install_template
+  script:
+    - npm run lint
+    - npm run type-check
+  only:
+    - merge_requests
+    - develop
+    - main
+
+test:dev:
+  stage: test
+  image: node:${NODE_VERSION}
+  extends: .install_template
+  script:
+    - npm run test:dev
+  environment:
+    name: development
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    reports:
+      junit: reports/junit.xml
+    expire_in: 30 days
+  only:
+    - develop
+    - merge_requests
+
+test:qa:
+  stage: test
+  image: node:${NODE_VERSION}
+  extends: .install_template
+  script:
+    - npm run test:qa
+  environment:
+    name: qa
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    reports:
+      junit: reports/junit.xml
+    expire_in: 30 days
+  only:
+    - main
+    - merge_requests
+
+test:staging:
+  stage: test
+  image: node:${NODE_VERSION}
+  extends: .install_template
+  script:
+    - npm run test:staging
+  environment:
+    name: staging
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    reports:
+      junit: reports/junit.xml
+    expire_in: 30 days
+  only:
+    - main
+  when: manual
+
+smoke:
+  stage: test
+  image: node:${NODE_VERSION}
+  extends: .install_template
+  script:
+    - npm run test:smoke
+  environment:
+    name: development
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    expire_in: 7 days
+  only:
+    - schedules
+
+# Scheduled job for nightly tests
+nightly:
+  stage: test
+  image: node:${NODE_VERSION}
+  extends: .install_template
+  script:
+    - npm run test:qa
+  environment:
+    name: qa
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    reports:
+      junit: reports/junit.xml
+    expire_in: 30 days
+  only:
+    - schedules
